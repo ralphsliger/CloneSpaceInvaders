@@ -119,7 +119,7 @@ while running:
         fire_bullet(bulletX, bulletY)
         bulletY -= bulletY_change
 
-    # Colision
+    # Colision - Si la colision ocurre restablece los valores del if
     collision = isCollision(enemyX, enemyY, bulletX, bulletY)
     if collision:
         bulletY = 480
