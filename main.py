@@ -2,6 +2,8 @@ import pygame
 import random
 import math
 
+from pygame import mixer
+
 # Inicializa pygame
 pygame.init()
 
@@ -10,6 +12,12 @@ screen = pygame.display.set_mode((800, 600))
 
 # Background
 background = pygame.image.load('background.jpg')
+
+#Background musica
+mixer.music.load('background.wav')
+mixer.music.play(-1) #con -1 se reproduce en loop
+
+
 
 # Titulo e icono
 pygame.display.set_caption("Space Invaders")
@@ -102,6 +110,8 @@ while running:
             if event.key == pygame.K_SPACE:
                 # obtiene la coordenada x actual de la navae
                 if bullet_state is "ready":
+                    bullet_Sound = mixer.Sound('laser.wav')
+                    bullet_Sound.play()
                     bulletX = playerX
                     fire_bullet(bulletX, bulletY)
 
@@ -130,6 +140,8 @@ while running:
         # Colision - Si la colision ocurre restablece los valores del if
         collision = isCollision(enemyX[i], enemyY[i], bulletX, bulletY)
         if collision:
+            explosion_Sound = mixer.Sound('explosion.wav')
+            explosion_Sound.play()
             bulletY = 480
             bullet_state = "ready"
             score_value += 1
