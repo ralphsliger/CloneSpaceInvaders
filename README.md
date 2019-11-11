@@ -1,5 +1,5 @@
 # CloneSpaceInvaders
 Pygame
 
-Clone Space invaders, hecho con Pygame.
+Clone Space invaders, hecho en python.
 
