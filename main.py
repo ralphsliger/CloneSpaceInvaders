@@ -44,8 +44,19 @@ bulletImg = pygame.image.load('bullet.png')
 bulletX = 0
 bulletY = 480
 bulletX_change = 0
-bulletY_change = 40
+bulletY_change = 19  # velocidad bala
 bullet_state = "ready"
+
+# Score
+score_value = 0
+font = pygame.font.Font('freesansbold.ttf', 22)
+textX = 10
+textY = 10
+
+
+def show_score(x, y):
+    score = font.render("Score: " + str(score_value), True, (255, 255, 255))
+    screen.blit(score, (x, y))
 
 
 def player(x, y):
@@ -60,9 +71,6 @@ def fire_bullet(x, y):
     global bullet_state
     bullet_state = "fire"
     screen.blit(bulletImg, (x + 16, y + 10))
-
-
-score = 0
 
 
 def isCollision(enemyX, enemyY, bulletX, bulletY):
@@ -124,8 +132,8 @@ while running:
         if collision:
             bulletY = 480
             bullet_state = "ready"
-            score += 1
-            print("Score: ", score)
+            score_value += 1
+            # print("Score: ", score_value)
             enemyX[i] = random.randint(0, 735)
             enemyY[i] = random.randint(50, 150)
 
@@ -141,4 +149,5 @@ while running:
         bulletY -= bulletY_change
 
     player(playerX, playerY)
+    show_score(textX,textY)
     pygame.display.update()
