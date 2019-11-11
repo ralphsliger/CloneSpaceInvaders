@@ -34,7 +34,7 @@ enemyX = []
 enemyY = []
 enemyX_change = []
 enemyY_change = []
-num_of_enemies = 6
+num_of_enemies = 7
 
 for i in range(num_of_enemies):
     enemyImg.append(pygame.image.load('enemy.png'))
@@ -50,28 +50,28 @@ bulletImg = pygame.image.load('bullet.png')
 bulletX = 0
 bulletY = 480
 bulletX_change = 0
-bulletY_change = 19  # velocidad bala
+bulletY_change = 15  # velocidad bala
 bullet_state = "ready"
 
 # Score
 score_value = 0
 font = pygame.font.Font('freesansbold.ttf', 22)
+
 textX = 10
 textY = 10
 
 # Game over
-
 over_font = pygame.font.Font('freesansbold.ttf', 64)
 
 
-def game_over_text(x, y):
+def game_over_text():
     over_text = over_font.render("GAME OVER", True, (255, 255, 255))
-    screen.blit(over_text, (x, y))
+    screen.blit(over_text, (200, 250))
 
 
-def show_score():
+def show_score(x, y):
     score = font.render("Score: " + str(score_value), True, (255, 255, 255))
-    screen.blit(score, (200, 250))  # CENTRO DE LA PANTALLA
+    screen.blit(score, (x, y))  # CENTRO DE LA PANTALLA
 
 
 def player(x, y):
@@ -115,10 +115,10 @@ while running:
             if event.key == pygame.K_RIGHT:
                 playerX_change = 5
             if event.key == pygame.K_SPACE:
-                # obtiene la coordenada x actual de la navae
                 if bullet_state is "ready":
                     bullet_Sound = mixer.Sound('laser.wav')
                     bullet_Sound.play()
+                    # obtiene la coordenada x actual de la navae
                     bulletX = playerX
                     fire_bullet(bulletX, bulletY)
 
@@ -146,7 +146,6 @@ while running:
             break
 
         enemyX[i] += enemyX_change[i]
-
         if enemyX[i] <= 0:
             enemyX_change[i] = 4
             enemyY[i] += enemyY_change[i]
