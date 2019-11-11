@@ -13,11 +13,9 @@ screen = pygame.display.set_mode((800, 600))
 # Background
 background = pygame.image.load('background.jpg')
 
-#Background musica
+# Background musica
 mixer.music.load('background.wav')
-mixer.music.play(-1) #con -1 se reproduce en loop
-
-
+mixer.music.play(-1)  # con -1 se reproduce en loop
 
 # Titulo e icono
 pygame.display.set_caption("Space Invaders")
@@ -61,10 +59,19 @@ font = pygame.font.Font('freesansbold.ttf', 22)
 textX = 10
 textY = 10
 
+# Game over
 
-def show_score(x, y):
+over_font = pygame.font.Font('freesansbold.ttf', 64)
+
+
+def game_over_text(x, y):
+    over_text = over_font.render("GAME OVER", True, (255, 255, 255))
+    screen.blit(over_text, (x, y))
+
+
+def show_score():
     score = font.render("Score: " + str(score_value), True, (255, 255, 255))
-    screen.blit(score, (x, y))
+    screen.blit(score, (200, 250))  # CENTRO DE LA PANTALLA
 
 
 def player(x, y):
@@ -127,7 +134,17 @@ while running:
         playerX = 736
 
     # Movimiento enemigo
+
     for i in range(num_of_enemies):
+
+        # game over
+
+        if enemyY[i] > 440:
+            for j in range(num_of_enemies):
+                enemyY[j] = 2000  # saca los enemigos de la pantalla 2000 pixeles en y
+            game_over_text()
+            break
+
         enemyX[i] += enemyX_change[i]
 
         if enemyX[i] <= 0:
@@ -161,5 +178,5 @@ while running:
         bulletY -= bulletY_change
 
     player(playerX, playerY)
-    show_score(textX,textY)
+    show_score(textX, textY)
     pygame.display.update()
